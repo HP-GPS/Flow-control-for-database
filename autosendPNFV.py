@@ -15,8 +15,8 @@ today = date.today().strftime("%Y%m%d")
 outlook = win32com.client.Dispatch("Outlook.Application").GetNamespace("MAPI")
 # folder = Path(home, 'HP Inc', 'GPSTW SOP - 2021 日新')
 
-folder = Path(home, 'HP Inc', 'GPS TW Innovation - Documents','Users','BSP','Shortage management related (Ri Xin)')
-emailReceiver_path = Path(home, 'HP Inc', 'GPS TW Innovation - Documents', 'Project team', 'receiver.xlsx')
+folder = Path(home, 'HP Inc','BSP APJ Innovation - Documents','Users','BSP','Shortage management related (Ri Xin)')
+emailReceiver_path = Path(home, 'HP Inc', 'BSP APJ Innovation - Documents', 'Project team', 'receiver.xlsx')
 emailReceiver = pd.ExcelFile(emailReceiver_path)
 
 # %%
@@ -44,8 +44,14 @@ mail.BCC = bcc_text
 mail.Subject = 'PN FV description mapping table update_' + today
 
 #新增信件內容
-mail.HTMLBody = '<h3>This is HTML Body</h3>'
-mail.Body = "Hi receiver, \n\nPlease find latest PN FV description mapping table attached. Thanks." + signature
+mail.HTMLBody = '''
+<html>
+    <body style="font-family: Calibri, sans-serif; font-size: 11pt;">
+        <p>Hi receiver,</p>
+        <p>Please find latest PN FV description mapping table attached. Thanks.</p>
+    </body>
+</html>
+''' + mail.HTMLBody
 #將剛才最後兩封信做為附件
 #mail.Attachments.Add(r'C:\Users\lulo\HP Inc\GPSTW SOP - 2021 日新\PN FV description mapping table_ALL.xlsx')
 print(Path(home, folder, 'PN FV description mapping table_ALL.xlsx'))
@@ -53,7 +59,7 @@ print(Path(home, folder, 'PN FV description mapping table_ALL.xlsx'))
 mail.Attachments.Add(str(Path(folder, 'PN FV description mapping table_ALL.xlsx')))
 time.sleep(15)
 #寄信
-mail.Send()
+#mail.Send()
 stop = timeit.default_timer()
 print('RunTime: ', stop - start, ' seconds') 
 
