@@ -177,14 +177,14 @@ def concatExternal(extReportPathList: list, KeyList: list) -> pd.DataFrame:
             temp = temp[temp.key.isin(KeyList)]
             
             try:
-                temp = temp[['ODM', 'FV/Des', 'HP_PN', 'ETA', 'GPS Remark']]
+                temp = temp[['ODM', 'FV/Des', 'HP_PN', 'ETA', 'BSP Remark']]
             except:
-                temp = temp[['ODM', 'FV/Des', 'HP PN', 'ETA', 'GPS Remark']]
+                temp = temp[['ODM', 'FV/Des', 'HP PN', 'ETA', 'BSP Remark']]
                 temp = temp.rename(columns = {'HP PN' : 'HP_PN'})
                 print("Rocky wrong format!")
                 
             temp = temp.groupby(['ODM', 'FV/Des']).agg({'ETA' : lambda x: '\n'.join(set(x.dropna())),
-                                                        'GPS Remark': lambda x: '\n'.join(set(x.dropna()))})
+                                                        'BSP Remark': lambda x: '\n'.join(set(x.dropna()))})
             temp = temp.reset_index()
             if len(temp) > 0:
                 print(len(temp))
@@ -199,7 +199,7 @@ def concatExternal(extReportPathList: list, KeyList: list) -> pd.DataFrame:
     except Exception as e:
         print(e)
         print("No single shortage match!")
-        return pd.DataFrame(columns = ['ODM', 'FV/Des', 'HP_PN', 'ETA', 'GPS Remark'])
+        return pd.DataFrame(columns = ['ODM', 'FV/Des', 'HP_PN', 'ETA', 'BSP Remark'])
     print('External process done!')
     return externalResultDF
 
@@ -315,13 +315,13 @@ for index, row in sg_res.iterrows():
     sg_pTyoe = row['Procurement type']
     sg_reportDate = row['reportDate']
     sg_ETA = row['ETA']
-    sg_gpsRemark = row['GPS Remark']
+    sg_gpsRemark = row['BSP Remark']
     sg_lastSGreportDate = row['LastSGreportDate']
     #sg_PN_single = row['HP PN']
 
 
     cursor.execute(f"INSERT INTO CSI.OPS.GPS_tbl_ops_Single_shortage ( Commodity, [Single Shortage QTY], ODM, Series, [HP PN], [Prev_Single Shortage QTY], \
-                    [Procurement type], reportDate, ETA, [GPS Remark], LastSGreportDate)\
+                    [Procurement type], reportDate, ETA, [BSP Remark], LastSGreportDate)\
                     VALUES('{sg_Commodity}','{sg_Qty}','{sg_ODM}','{sg_series}','{sg_PN_all}', '{sg_pQty}','{sg_pTyoe}','{sg_reportDate}',\
                            '{sg_ETA}','{sg_gpsRemark}', '{sg_lastSGreportDate}')".replace("'NaT'", "NULL").replace("'nan'", "NULL"))
 
