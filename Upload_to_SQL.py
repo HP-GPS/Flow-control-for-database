@@ -98,7 +98,7 @@ conn.commit()
 # In[29]:
 
 
-for i in ['GPS Remark', 'ODM use column1','ODM use column2','ODM use column3','ODM use column4','ODM use column5']:
+for i in ['BSP Remark', 'ODM use column1','ODM use column2','ODM use column3','ODM use column4','ODM use column5']:
     PNbasedDetail[i] = PNbasedDetail[i].fillna("")
 
 
@@ -110,7 +110,7 @@ for index, row in PNbasedDetail.iterrows():
     p_Item = row['Item']
     p_Commodity = row['Commodity']
     p_PN = row['HP PN']
-    p_Remark = row['GPS Remark'].replace("\'", "\'\'")
+    p_Remark = row['BSP Remark'].replace("\'", "\'\'")
     p_stock = row['852 stock']
     p_change = row['852 stock change']
     p_over = row['Over pull qty']
@@ -122,7 +122,7 @@ for index, row in PNbasedDetail.iterrows():
     p_ReportDate = row['ReportDate']
     p_BuyerName = row['BuyerName']
 
-    cursor.execute(f"INSERT INTO CSI.OPS.GPS_tbl_ops_PNbasedDetail ( ODM,Item,Commodity,[HP PN],[GPS Remark],[852 stock],[852 stock change],[Over pull qty],\
+    cursor.execute(f"INSERT INTO CSI.OPS.GPS_tbl_ops_PNbasedDetail ( ODM,Item,Commodity,[HP PN],[BSP Remark],[852 stock],[852 stock change],[Over pull qty],\
                     [ODM use column1],[ODM use column2],[ODM use column3],[ODM use column4],[ODM use column5],ReportDate,BuyerName )\
                     VALUES('{p_ODM}','{p_Item}','{p_Commodity}','{p_PN}','{p_Remark}','{p_stock}','{p_change}','{p_over}','{p_ODM1}','{p_ODM2}','{p_ODM3}','{p_ODM4}','{p_ODM5}','{p_ReportDate}','{p_BuyerName}')".replace("'NaT'", "NULL"))
 

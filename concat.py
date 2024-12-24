@@ -127,7 +127,7 @@ Shortage_output.drop_duplicates(subset=['ReportDate', 'ODM','Item','Commodity','
 
 PN = merge(str(os.path.join(PNbasedDetail_folder,"*.xlsx")))
 try:
-    PNbasedDetail_output = maxLen(PN, ['GPS Remark','ODM use column1','ODM use column2','ODM use column3','ODM use column4','ODM use column5'])
+    PNbasedDetail_output = maxLen(PN, ['BSP Remark','ODM use column1','ODM use column2','ODM use column3','ODM use column4','ODM use column5'])
 except ValueError:
     PNbasedDetail_output = PN.copy()
 # PNbasedDetail_output = PN.copy()

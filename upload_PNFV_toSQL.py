@@ -24,8 +24,8 @@ from pandas.api.types import is_numeric_dtype, is_string_dtype
 # home and time
 home = Path.home()
 todaystr = date.today().strftime('%Y-%m-%d')
-PNFV_alternative = pd.read_excel(Path(home, 'HP Inc', 'GPS TW Innovation - Documents', 'GPS', 'PNFV', 'alternative.xlsx'))
-PNFV = pd.read_excel(Path(home, 'HP Inc', 'GPS TW Innovation - Documents', 'Users', 'GPS', 'PN FV description mapping table_ALL.xlsx'))
+PNFV_alternative = pd.read_excel(Path(home, 'HP Inc', 'GPS TW Innovation - Documents', 'BSP', 'PNFV', 'alternative.xlsx'))
+PNFV = pd.read_excel(Path(home, 'HP Inc', 'GPS TW Innovation - Documents', 'Users', 'BSP', 'PN FV description mapping table_ALL.xlsx'))
 
 
 # In[ ]:
